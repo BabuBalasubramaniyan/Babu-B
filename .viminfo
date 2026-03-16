@@ -12,11 +12,15 @@
 ~h
 # Command Line History (newest to oldest):
 :wq
+<<<<<<< HEAD
 |2,0,1773669555,,"wq"
 :qa
 |2,0,1773669385,,"qa"
 :wa
 |2,0,1773669377,,"wa"
+=======
+|2,0,1773647295,,"wq"
+>>>>>>> dev
 :q
 |2,0,1773646664,,"q"
 
@@ -29,6 +33,7 @@
 # Debug Line History (newest to oldest):
 
 # Registers:
+<<<<<<< HEAD
 "0	LINE	0
 	pipeline {
 	    agent any
@@ -327,6 +332,34 @@
 	"	1	0
 	^	1	0
 	.	1	0
+=======
+
+# File marks:
+'0  73  0  ~/jenkinsfile
+|4,48,73,0,1773647295,"~/jenkinsfile"
+'1  1  1582  ~/jenkinsfile
+|4,49,1,1582,1773646676,"~/jenkinsfile"
+'2  67  9  ~/jenkinsfile
+|4,50,67,9,1773646676,"~/jenkinsfile"
+
+# Jumplist (newest first):
+-'  73  0  ~/jenkinsfile
+|4,39,73,0,1773647295,"~/jenkinsfile"
+-'  1  1582  ~/jenkinsfile
+|4,39,1,1582,1773646679,"~/jenkinsfile"
+-'  67  9  ~/jenkinsfile
+|4,39,67,9,1773646676,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773646632,"~/jenkinsfile"
+
+# History of marks within files (newest to oldest):
+
+> ~/jenkinsfile
+	*	1773647291	0
+	"	73	0
+	^	73	1
+	.	30	44
+>>>>>>> dev
 	+	1	0
 	+	73	0
 	+	5	37
@@ -338,7 +371,10 @@
 	+	27	48
 	+	29	54
 	+	30	44
+<<<<<<< HEAD
 	+	44	38
 	+	56	38
 	+	67	67
 	+	1	0
+=======
+>>>>>>> dev
