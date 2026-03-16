@@ -11,7 +11,7 @@ pipeline {
 
         stage('Clone Code') {
             steps {
-                git url: 'https://github.com/<username>/devops-build.git',
+                git url: 'https://github.com/BabuBalasubramaniyan/Babu-B.git',
                 branch: "${env.BRANCH_NAME}"
             }
         }
