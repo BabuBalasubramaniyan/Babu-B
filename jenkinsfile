@@ -41,7 +41,7 @@ pipeline {
             }
             steps {
                 sh '''
-                docker tag $IMAGE_NAME $DEV_REPO:latest
+                docker tag $react-app-1 $DEV_REPO:latest
                 docker push $DEV_REPO:latest
                 '''
             }
@@ -53,7 +53,7 @@ pipeline {
             }
             steps {
                 sh '''
-                docker tag $IMAGE_NAME $PROD_REPO:latest
+                docker tag $react-app-1 $PROD_REPO:latest
                 docker push $PROD_REPO:latest
                 '''
             }
@@ -64,7 +64,7 @@ pipeline {
                 sh '''
                 docker stop react-app || true
                 docker rm react-app || true
-                docker run -d -p 80:80 --name react-app $IMAGE_NAME
+                docker run -d -p 80:80 --name react-app $react-app-1
                 '''
             }
         }

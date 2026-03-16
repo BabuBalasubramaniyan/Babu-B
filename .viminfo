@@ -12,7 +12,11 @@
 ~h
 # Command Line History (newest to oldest):
 :wq
-|2,0,1773647295,,"wq"
+|2,0,1773669555,,"wq"
+:qa
+|2,0,1773669385,,"qa"
+:wa
+|2,0,1773669377,,"wa"
 :q
 |2,0,1773646664,,"q"
 
@@ -25,32 +29,304 @@
 # Debug Line History (newest to oldest):
 
 # Registers:
+"0	LINE	0
+	pipeline {
+	    agent any
+	
+	    environment {
+	        DEV_REPO="babubalasubramaniyan/dev"
+	        PROD_REPO="babubalasubramaniyan/prod"
+	        IMAGE_NAME="react-app-1"
+	    }
+	
+	    stages {
+	
+	        stage('Clone Code') {
+	            steps {
+	                git url: 'https://github.com/BabuBalasubramaniyan/Babu-B/tree/dev',
+	                branch: "${env.dev}"
+	            }
+	        }
+	
+	        stage('Build Docker Image') {
+	            steps {
+	                sh 'docker build -t $react-app-1 .'
+	            }
+	        }
+	
+	        stage('Login DockerHub') {
+	            steps {
+	                withCredentials([usernamePassword(
+	                credentialsId: 'dockerhub-creds',
+	                usernameVariable: 'babubalasubramaniyan',
+	                passwordVariable: 'Babu@#0805'
+	                )]) {
+	
+	                sh 'echo $PASS | docker login -u $USER --password-stdin'
+	                }
+	            }
+	        }
+	
+	        stage('Push to DEV Repo') {
+	            when {
+	                branch 'dev'
+	            }
+	            steps {
+	                sh '''
+	                docker tag $react-app-1 $DEV_REPO:latest
+	                docker push $DEV_REPO:latest
+	                '''
+	            }
+	        }
+	
+	        stage('Push to PROD Repo') {
+|3,0,0,1,50,0,1773668761,"pipeline {","    agent any","","    environment {","        DEV_REPO=\"babubalasubramaniyan/dev\"","        PROD_REPO=\"babubalasubramaniyan/prod\"","        IMAGE_NAME=\"react-app-1\"","    }","","    stages {","","        stage('Clone Code') {","            steps {","                git url: 'https://github.com/BabuBalasubramaniyan/Babu-B/tree/dev',","                branch: \"${env.dev}\"","            }","        }","",>39
+|<"        stage('Build Docker Image') {","            steps {","                sh 'docker build -t $react-app-1 .'","            }","        }","","        stage('Login DockerHub') {","            steps {","                withCredentials([usernamePassword(","                credentialsId: 'dockerhub-creds',","                usernameVariable: 'babubalasubramaniyan',","                passwordVariable: 'Babu@#0805'","                )]) {","",>74
+|<"                sh 'echo $PASS | docker login -u $USER --password-stdin'","                }","            }","        }","","        stage('Push to DEV Repo') {","            when {","                branch 'dev'","            }","            steps {","                sh '''","                docker tag $react-app-1 $DEV_REPO:latest","                docker push $DEV_REPO:latest","                '''","            }","        }","","        stage('Push to PROD Repo') {"
+""-	CHAR	0
+	e
+|3,1,36,0,1,0,1773668774,"e"
 
 # File marks:
-'0  73  0  ~/jenkinsfile
-|4,48,73,0,1773647295,"~/jenkinsfile"
-'1  1  1582  ~/jenkinsfile
-|4,49,1,1582,1773646676,"~/jenkinsfile"
-'2  67  9  ~/jenkinsfile
-|4,50,67,9,1773646676,"~/jenkinsfile"
+'0  73  0  ~/Jenkinsfile
+|4,48,73,0,1773669555,"~/Jenkinsfile"
+'1  124  16  ~/Jenkinsfile
+|4,49,124,16,1773669393,"~/Jenkinsfile"
+'2  52  16  ~/Jenkinsfile
+|4,50,52,16,1773669393,"~/Jenkinsfile"
+'3  124  16  ~/Jenkinsfile
+|4,51,124,16,1773669385,"~/Jenkinsfile"
+'4  52  16  ~/Jenkinsfile
+|4,52,52,16,1773669385,"~/Jenkinsfile"
+'5  1  0  ~/jenkinsfile
+|4,53,1,0,1773668789,"~/jenkinsfile"
+'6  1  0  ~/Jenkinsfile
+|4,54,1,0,1773668711,"~/Jenkinsfile"
+'7  1  0  ~/Jenkinsfile
+|4,55,1,0,1773668711,"~/Jenkinsfile"
+'8  1  0  ~/Jenkinsfile
+|4,56,1,0,1773668711,"~/Jenkinsfile"
+'9  1  0  ~/Jenkinsfile
+|4,57,1,0,1773668711,"~/Jenkinsfile"
 
 # Jumplist (newest first):
--'  73  0  ~/jenkinsfile
-|4,39,73,0,1773647295,"~/jenkinsfile"
--'  1  1582  ~/jenkinsfile
-|4,39,1,1582,1773646679,"~/jenkinsfile"
--'  67  9  ~/jenkinsfile
-|4,39,67,9,1773646676,"~/jenkinsfile"
+-'  73  0  ~/Jenkinsfile
+|4,39,73,0,1773669555,"~/Jenkinsfile"
+-'  1  0  ~/Jenkinsfile
+|4,39,1,0,1773669426,"~/Jenkinsfile"
+-'  124  16  ~/Jenkinsfile
+|4,39,124,16,1773669393,"~/Jenkinsfile"
+-'  52  16  ~/Jenkinsfile
+|4,39,52,16,1773669393,"~/Jenkinsfile"
+-'  52  16  ~/Jenkinsfile
+|4,39,52,16,1773669385,"~/Jenkinsfile"
+-'  1  0  ~/Jenkinsfile
+|4,39,1,0,1773669361,"~/Jenkinsfile"
+-'  1  0  ~/Jenkinsfile
+|4,39,1,0,1773669361,"~/Jenkinsfile"
 -'  1  0  ~/jenkinsfile
-|4,39,1,0,1773646632,"~/jenkinsfile"
+|4,39,1,0,1773668789,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668789,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668789,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668789,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668789,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668789,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668789,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668789,"~/jenkinsfile"
+-'  1  0  ~/Jenkinsfile
+|4,39,1,0,1773668711,"~/Jenkinsfile"
+-'  1  0  ~/Jenkinsfile
+|4,39,1,0,1773668711,"~/Jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668692,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668692,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668692,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668692,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668692,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668692,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668692,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668692,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668692,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668692,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668692,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668692,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668692,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668692,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668692,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668692,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668619,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668619,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668619,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668619,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668619,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668619,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668619,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668619,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668619,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668619,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668619,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668619,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668619,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668619,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668619,"~/jenkinsfile"
+-'  1  0  ~/jenkinsfile
+|4,39,1,0,1773668619,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667414,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667368,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667368,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667368,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667368,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667368,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667368,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667368,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667368,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667368,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667368,"~/jenkinsfile"
+-'  72  4  ~/jenkinsfile
+|4,39,72,4,1773667368,"~/jenkinsfile"
 
 # History of marks within files (newest to oldest):
 
-> ~/jenkinsfile
-	*	1773647291	0
+> ~/Jenkinsfile
+	*	1773669553	0
 	"	73	0
 	^	73	1
-	.	30	44
+	.	73	0
+	+	1	10
+	+	129	1
+	+	73	0
+
+> ~/jenkinsfile
+	*	1773668786	0
+	"	1	0
+	^	1	0
+	.	1	0
 	+	1	0
 	+	73	0
 	+	5	37
@@ -62,3 +338,7 @@
 	+	27	48
 	+	29	54
 	+	30	44
+	+	44	38
+	+	56	38
+	+	67	67
+	+	1	0
